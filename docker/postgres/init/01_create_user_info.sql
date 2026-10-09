@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS userInfo;
 
 CREATE TABLE userInfo (
     userId char(32) NOT NULL,
+    userEmail char(128) NOT NULL,
     userName char(64) NOT NULL,
     userPassword text NOT NULL,
     latest_access_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -12,10 +13,11 @@ CREATE TABLE userInfo (
 
 -- サンプルデータの登録
 INSERT INTO
-    userInfo (userId, userName, userPassword)
+    userInfo (userId, userEmail, userName, userPassword)
 VALUES
     (
         'sampleUserId1',
+        'sample1@test.com',
         'sample UserName1',
         'abcdef'
     );
@@ -25,6 +27,7 @@ INSERT INTO
 VALUES
     (
         'sampleUserId2',
+        'sample2@test.com',
         'sample UserName2',
         'abcdef'
     );
@@ -34,6 +37,7 @@ INSERT INTO
 VALUES
     (
         'NotLoginUserId',
+        'notLoginUser@test.com',
         'NotLoginUserName',
         'abcdef'
     );
