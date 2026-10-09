@@ -23,7 +23,7 @@ VALUES
     );
 
 INSERT INTO
-    userInfo (userId, userName, userPassword)
+    userInfo (userId, userEmail, userName, userPassword)
 VALUES
     (
         'sampleUserId2',
