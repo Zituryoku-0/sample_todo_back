@@ -21,6 +21,7 @@ export class UserRepository {
         FROM user_info
         WHERE email = $1
         AND password_hash = $2
+        AND delete_flg = FALSE
         `,
       [loginRequest.email, loginRequest.password],
     );
