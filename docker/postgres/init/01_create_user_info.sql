@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS user_info;
 
 CREATE TABLE user_info (
     user_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    email char(128) NOT NULL,
+    email char(128) NOT NULL UNIQUE,
     user_name char(64) NOT NULL,
     password_hash text NOT NULL,
     latest_access_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
