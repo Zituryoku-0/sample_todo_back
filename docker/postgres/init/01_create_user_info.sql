@@ -1,58 +1,54 @@
 -- テーブル作成
-DROP TABLE IF EXISTS userInfo;
+DROP TABLE IF EXISTS user_info;
 
-CREATE TABLE userInfo (
-    userId char(32) NOT NULL,
-    userEmail char(128) NOT NULL,
-    userName char(64) NOT NULL,
-    userPassword text NOT NULL,
+CREATE TABLE user_info (
+    user_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    email char(128) NOT NULL UNIQUE,
+    user_name char(64) NOT NULL,
+    password_hash text NOT NULL,
     latest_access_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    delete_flg boolean NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (userId)
+    delete_flg boolean NOT NULL DEFAULT FALSE
 );
 
 -- サンプルデータの登録
 INSERT INTO
-    userInfo (userId, userEmail, userName, userPassword)
+    user_info (email, user_name, password_hash)
 VALUES
     (
-        'sampleUserId1',
         'sample1@test.com',
-        'sample UserName1',
+        'sample user_name1',
         'abcdef'
     );
 
 INSERT INTO
-    userInfo (userId, userEmail, userName, userPassword)
+    user_info (email, user_name, password_hash)
 VALUES
     (
-        'sampleUserId2',
         'sample2@test.com',
-        'sample UserName2',
+        'sample user_name2',
         'abcdef'
     );
 
 INSERT INTO
-    userInfo (userId, userName, userPassword)
+    user_info (email, user_name, password_hash)
 VALUES
     (
-        'NotLoginUserId',
         'notLoginUser@test.com',
-        'NotLoginUserName',
+        'NotLoginuser_name',
         'abcdef'
     );
 
 UPDATE
-    userInfo
+    user_info
 SET
     latest_access_time = '2000-01-01 12:00:00'
 WHERE
-    userId = 'sampleUserId2';
+    email = 'sample2@test.com';
 
 -- NotLoginUserの削除フラグを立てる
 UPDATE
-    userInfo
+    user_info
 SET
     delete_flg = TRUE
 WHERE
-    userId = 'NotLoginUserId';
+    email = 'notLoginUser@test.com';
