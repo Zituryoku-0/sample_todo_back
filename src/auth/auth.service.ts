@@ -5,6 +5,7 @@ import { LoginRequestDto } from '../dto/loginRequestDto.js';
 import { UserService } from '../user/user.service.js';
 import { log } from 'console';
 import { User } from '../user/user.entity.js';
+import { LoginResponseDto } from '../dto/loginResponseDto.js';
 
 @Injectable()
 export class AuthService {
@@ -13,13 +14,13 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async generateAccessToken(loginResponse: User): Promise<string> {
+  async generateAccessToken(loginResponse: User): Promise<LoginResponseDto> {
     const payload: JwtPayload = {
       sub: loginResponse.user_id,
       email: loginResponse.email,
     };
-
-    return this.jwtService.signAsync(payload);
+    const accessToken = await this.jwtService.signAsync(payload);
+    return { accessToken } as LoginResponseDto;
   }
 
   async verifyAccessToken(token: string): Promise<JwtPayload> {
