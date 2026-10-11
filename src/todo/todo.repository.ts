@@ -21,16 +21,16 @@ export class TodoRepository {
             completed
         FROM todo_info
         WHERE email = $1
+        AND delete_flg = FALSE
         `,
       [userId],
     );
   }
 
   async addTodo(createTodoDto: CreateTodoDto, email: string): Promise<void> {
-    return this.repository.query(
+    await this.repository.query(
       `INSERT INTO todo_info (email, title, completed)
-      VALUES ($1, $2, false)
-      RETURNING id`,
+      VALUES ($1, $2, false)`,
       [email, createTodoDto.title],
     );
   }

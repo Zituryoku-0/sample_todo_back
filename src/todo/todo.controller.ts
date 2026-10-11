@@ -16,11 +16,11 @@ export class TodoController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(
-    @Body() createTodoSto: CreateTodoDto,
+    @Body() createTodoDto: CreateTodoDto,
     @Req() request: AuthenticatiedRequest,
   ) {
     const email = request.user.email;
-    return this.todoService.create(createTodoSto, email);
+    return this.todoService.create(createTodoDto, email);
   }
 
   @UseGuards(JwtAuthGuard)

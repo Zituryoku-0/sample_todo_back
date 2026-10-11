@@ -8,7 +8,7 @@ import { JwtPayload } from '../auth/jwt-payload.js';
 import { AuthService } from './auth.service.js';
 import { Request } from 'express';
 
-type AuthenticatiedRequest = Request & {
+type AuthenticatedRequest = Request & {
   user: JwtPayload;
 };
 
@@ -17,7 +17,7 @@ export class JwtAuthGuard implements CanActivate {
   constructor(private readonly authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<AuthenticatiedRequest>();
+    const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
 
     const authorization = request.headers.authorization;
 
